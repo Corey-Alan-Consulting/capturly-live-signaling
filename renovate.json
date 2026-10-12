@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>Corey-Alan-Consulting/deploy-workflows:renovate-config"]
+  "extends": ["github>Corey-Alan-Consulting/deploy-workflows:renovate-config"],
+  "packageRules": [
+    {
+      "description": "No automerge here, overriding the shared preset. The preset's automerge rules state their own precondition out loud — 'automerge assumes the consuming repo gates merges on required status checks' — and this repo has no PR-triggered workflow at all. Renovate reads a branch with no checks as green, so automerge would mean merging a dependency bump with nothing having run. Placed last deliberately: Renovate applies packageRules in order and later matches win, and because vulnerabilityAlerts is layered on top of the RESOLVED config, a trailing rule like this one is also the only form that reaches security updates. Delete this rule once the repo has a PR gate.",
+      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
+      "automerge": false
+    }
+  ]
 }
