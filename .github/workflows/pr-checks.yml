@@ -33,7 +33,7 @@ jobs:
         with:
           persist-credentials: false
 
-      # Node 22 to match the Dockerfile's `FROM node:22-alpine`; a gate running
+      # Node 24 to match the Dockerfile's `FROM node:24-alpine`; a gate running
       # a different major than production would be checking the wrong runtime.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -52,6 +52,6 @@ jobs:
           done
 
       # Builds the real image, so a dependency that fails to install under
-      # alpine/node:22 is caught here rather than at deploy.
+      # alpine/node:24 is caught here rather than at deploy.
       - name: Build the image
         run: docker build --tag capturly-live-signaling:pr .
